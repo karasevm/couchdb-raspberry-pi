@@ -5,5 +5,6 @@ older 32-bit Raspberry Pi boards.
 Dockerfile is based on the [official one](https://github.com/apache/couchdb-docker)
 so the documentation provided [here](https://github.com/apache/couchdb-docker/blob/master/README.md) should be compatible.
 
-While the main reason for this project is armhf support, the images are also built
-for amd64 and arm64 for docker compose portability.
+# Notice
+This is not an officially supported configuration, so please refrain from reporting
+upstream bugs without reproducing them on a supported platform first
