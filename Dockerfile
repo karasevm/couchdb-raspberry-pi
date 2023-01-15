@@ -1,6 +1,6 @@
 FROM debian:bullseye as builder
 
-ENV COUCHDB_VERSION 3.2.2
+ENV COUCHDB_VERSION 3.3.1
 
 # Prepare build env
 RUN apt-get update && apt-get install -y git

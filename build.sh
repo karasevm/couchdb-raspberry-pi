@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 IMAGE_NAME=karasevm/couchdb
-COUCHDB_VERSION=3.2.2
+COUCHDB_VERSION=3.3.1
 COUCHDB_VERSION_MAJOR=3
 output='docker'
 platform='linux/amd64,linux/arm64,linux/arm/v7'
