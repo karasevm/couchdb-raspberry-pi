@@ -22,6 +22,8 @@ WORKDIR /
 RUN git clone --depth 1 --branch $COUCHDB_VERSION https://github.com/apache/couchdb.git 
 WORKDIR /couchdb
 RUN ./configure --disable-docs
+# workaround chromedriver not supporting armv7
+RUN sed -i 's/npm install/npm uninstall chromedriver \&\& npm install/g' Makefile 
 RUN make release
 
 FROM debian:bullseye-slim
