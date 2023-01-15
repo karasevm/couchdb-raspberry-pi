@@ -5,7 +5,8 @@ ENV COUCHDB_VERSION 3.3.1
 # Prepare build env
 RUN apt-get update && apt-get install -y git
 RUN git clone --depth 1 https://github.com/apache/couchdb-ci.git
-RUN bash /couchdb-ci/bin/install-dependencies.sh
+RUN bash NODEVERSION=16 \
+    /root/couchdb-ci/bin/install-dependencies.sh
 RUN apt-get install -y --no-install-recommends pkg-kde-tools python libffi-dev 
 
 # Build SpiderMonkey 1.8.5
