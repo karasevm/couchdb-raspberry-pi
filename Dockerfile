@@ -1,6 +1,6 @@
 FROM debian:bullseye as builder
 
-ENV COUCHDB_VERSION 3.3.2
+ENV COUCHDB_VERSION 3.3.3
 ENV NODEVERSION 16
 
 # Prepare build env
