@@ -1,11 +1,14 @@
-FROM debian:bullseye as builder
+FROM debian:bullseye AS builder
 
 ENV COUCHDB_VERSION 3.3.3
 ENV NODEVERSION 16
 
+
 # Prepare build env
 RUN apt-get update && apt-get install -y git
 RUN git clone --depth 1 https://github.com/apache/couchdb-ci.git
+# For couchdb-ci compatability
+RUN adduser jenkins
 RUN bash /couchdb-ci/bin/install-dependencies.sh
 RUN apt-get install -y --no-install-recommends pkg-kde-tools python libffi-dev 
 
@@ -43,7 +46,7 @@ RUN groupadd -g 5984 -r couchdb && useradd -u 5984 -d /opt/couchdb -g couchdb co
 RUN set -eux; \
     apt-get update; \
     apt-get install -y /tmp/debs/*.deb; \
-    apt-get install -y --no-install-recommends gosu tini erlang-nox erlang-reltool libicu67; \
+    apt-get install -y --no-install-recommends gosu tini erlang-nox libicu67; \
     rm -rf /var/lib/apt/lists/*; \
     rm -rf /tmp/debs/*; \
     gosu nobody true; \
