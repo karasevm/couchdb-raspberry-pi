@@ -36,7 +36,7 @@ RUN groupadd -g 5984 -r couchdb && useradd -u 5984 -d /opt/couchdb -g couchdb co
 
 RUN set -eux; \
     apt-get update; \
-    apt-get install -y --no-install-recommends tini erlang-nox libicu72; \
+    apt-get install -y --no-install-recommends tini erlang-nox libicu72 libmozjs-78-dev; \
     rm -rf /var/lib/apt/lists/*; \
     tini --version
 
