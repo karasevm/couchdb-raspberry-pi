@@ -1,6 +1,6 @@
 FROM debian:bookworm-slim AS builder
 
-ENV COUCHDB_VERSION=3.4.2
+ENV COUCHDB_VERSION=3.5.0
 ENV NODEVERSION=22
 
 
