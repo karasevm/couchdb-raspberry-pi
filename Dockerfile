@@ -19,6 +19,8 @@ WORKDIR /couchdb
 RUN ./configure --disable-docs --spidermonkey-version 78
 # workaround chromedriver not supporting armv7
 RUN sed -i 's/npm install/npm uninstall chromedriver \&\& npm install/g' Makefile 
+# strengthen macro guard
+RUN sed -i 's/^#if !defined(_WIN32) \&\& defined(__LP64__)/#if !defined(_WIN32) \&\& (defined(__LP64__) || defined(__x86_64__) || defined(__aarch64__)) \&\& \!defined(__arm__) \&\& \!defined(__i386__)/' src/couch/priv/couch_cfile/couch_cfile.c
 RUN make release
 
 FROM debian:bookworm-slim
