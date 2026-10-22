@@ -1,7 +1,7 @@
-FROM debian:bookworm-slim AS builder
+FROM debian:trixie-slim AS builder
 
-ENV COUCHDB_VERSION=3.5.0
-ENV NODEVERSION=22
+ENV COUCHDB_VERSION=3.5.3
+ENV NODEVERSION=24
 
 
 # Prepare build env
@@ -10,20 +10,20 @@ RUN git clone --depth 1 https://github.com/apache/couchdb-ci.git
 # For couchdb-ci compatability
 RUN adduser jenkins
 RUN bash /couchdb-ci/bin/install-dependencies.sh
-RUN apt-get install -y libmozjs-78-dev
+RUN apt-get install -y libmozjs-128-dev
 
 # Build CouchDB
 WORKDIR /
 RUN git clone --depth 1 --branch $COUCHDB_VERSION https://github.com/apache/couchdb.git 
 WORKDIR /couchdb
-RUN ./configure --disable-docs --spidermonkey-version 78
+RUN ./configure --disable-docs --spidermonkey-version 128
 # workaround chromedriver not supporting armv7
 RUN sed -i 's/npm install/npm uninstall chromedriver \&\& npm install/g' Makefile 
 RUN sed -i 's/long offset, block_size;/ErlNifSInt64 offset, block_size;/' /couchdb/src/couch/priv/couch_cfile/couch_cfile.c
 RUN sed -i 's/long result, offset;/long result; ErlNifSInt64 offset;/' /couchdb/src/couch/priv/couch_cfile/couch_cfile.c
 RUN make release
 
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 COPY --from=builder /couchdb/rel/couchdb /opt/couchdb
 COPY --chown=couchdb:couchdb 10-docker-default.ini /opt/couchdb/etc/default.d/
