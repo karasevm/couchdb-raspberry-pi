@@ -2,10 +2,9 @@ FROM debian:trixie-slim AS builder
 
 ENV COUCHDB_VERSION=3.5.3
 
-ARG erlangversion=27.3.4.16
-ARG elixirversion=v1.18.4
-ARG nodeversion=24
-
+ENV NODEVERSION=24
+ENV ERLANGVERSION=27.3.4.16
+ENV ELIXIRVERSION=v1.18.4
 
 
 # Prepare build env
